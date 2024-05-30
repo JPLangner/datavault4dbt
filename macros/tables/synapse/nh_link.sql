@@ -2,9 +2,7 @@
 
 {%- if not (foreign_hashkeys is iterable and foreign_hashkeys is not string) -%}
 
-    {%- if execute -%}
-        {{ exceptions.raise_compiler_error("Only one foreign key provided for this link. At least two required.") }}
-    {%- endif %}
+    {%- set foreign_hashkeys = [] -%}
 
 {%- endif -%}
 

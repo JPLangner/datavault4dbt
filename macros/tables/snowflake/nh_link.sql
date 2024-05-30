@@ -1,9 +1,7 @@
 {%- macro snowflake__nh_link(link_hashkey, foreign_hashkeys, payload, source_models, src_ldts, src_rsrc, disable_hwm, source_is_single_batch) -%}
 {%- if not (foreign_hashkeys is iterable and foreign_hashkeys is not string) -%}
 
-    {%- if execute -%}
-        {{ exceptions.raise_compiler_error("Only one foreign key provided for this link. At least two required.") }}
-    {%- endif %}
+    {%- set foreign_hashkeys = [] -%}
 
 {%- endif -%}
 
@@ -24,6 +22,7 @@
 {%- set ns.has_rsrc_static_defined = source_model_values['has_rsrc_static_defined'] -%}
 {%- set ns.source_models_rsrc_dict = source_model_values['source_models_rsrc_dict'] -%}
 {{ log('source_models: '~source_models, false) }}
+
 
 {%- set final_columns_to_select = [link_hashkey] + foreign_hashkeys + [src_ldts] + [src_rsrc] + payload -%}
 
